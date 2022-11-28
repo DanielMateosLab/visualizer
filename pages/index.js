@@ -1,9 +1,10 @@
+import Background from "../components/Background";
 import { db, getPoints } from "../firebase/db";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      ESTUDIO CACTUS VISUALIZER TEST
+    <div className="h-screen w-screen relative flex overflow-hidden">
+      <Background />
     </div>
   );
 }
