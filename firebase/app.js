@@ -1,6 +1,12 @@
 import { initializeApp } from "firebase/app";
 import config from "./config";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore/lite";
 
 const app = initializeApp(config);
 export const db = getFirestore(app);
@@ -8,13 +14,26 @@ export const db = getFirestore(app);
 export async function getPoints(db) {
   const pointsCol = collection(db, "points");
   const pointSnapshot = await getDocs(pointsCol);
-  const pointList = pointSnapshot.docs.map((doc) => doc.data());
-  return pointList;
+  const pointsMap = pointSnapshot.docs.reduce(
+    (acc, curr) => ({
+      points: {
+        ...acc.points,
+        [curr.id]: curr.data(),
+      },
+      allPointIds: [...acc.allPointIds, curr.id],
+    }),
+    { points: {}, allPointIds: [] }
+  );
+  return pointsMap;
 }
 
-export async function getMaterials(db) {
+export async function getMaterialsByPointId(db, pointId) {
   const materialsCol = collection(db, "materials");
-  const materialSnapshot = await getDocs(materialsCol);
-  const materialList = materialSnapshot.docs.map((doc) => doc.data());
-  return materialList;
+  const queryMaterialsForPoint = query(
+    materialsCol,
+    where("points", "array-contains", pointId)
+  );
+  const materialsSnapshot = await getDocs(queryMaterialsForPoint);
+  const materialsByPointId = materialsSnapshot.docs.map((doc) => doc.data());
+  return materialsByPointId;
 }

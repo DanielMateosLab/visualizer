@@ -1,8 +1,6 @@
-import { db, getMaterials, getPoints } from "../firebase/app";
+import { db, getPoints } from "../firebase/app";
 
-export default function Home(props) {
-  console.log(props.pointList);
-  console.log(props.materialsList);
+export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       ESTUDIO CACTUS VISUALIZER TEST
@@ -11,13 +9,7 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  const pointList = await getPoints(db);
-  const materialsList = await getMaterials(db);
+  const pointsData = await getPoints(db);
 
-  return {
-    props: {
-      pointList,
-      materialsList,
-    },
-  };
+  return { props: pointsData };
 }
