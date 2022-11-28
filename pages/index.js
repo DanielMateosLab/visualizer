@@ -1,4 +1,4 @@
-import { db, getPoints } from "../firebase/app";
+import { db, getPoints } from "../firebase/db";
 
 export default function Home() {
   return (
