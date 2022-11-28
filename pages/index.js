@@ -1,14 +1,22 @@
+import { Fragment } from "react";
 import Background from "../components/Background";
 import KitchenDashboard from "../components/KitchenDashboard";
+import PointSettingsButton from "../components/PointSettingsButton";
 import { db, getPoints } from "../firebase/db";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div className="h-screen w-screen relative flex overflow-hidden">
       <Background />
 
       <div className="w-1/6" />
-      <KitchenDashboard />
+      <KitchenDashboard>
+        {props.allPointIds.map((pointId) => (
+          <Fragment key={pointId}>
+            <PointSettingsButton {...props.points[pointId]} />
+          </Fragment>
+        ))}
+      </KitchenDashboard>
       <div className="w-1/6" />
     </div>
   );
