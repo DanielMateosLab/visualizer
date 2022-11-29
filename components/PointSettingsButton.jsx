@@ -1,6 +1,6 @@
 import FingerPrint from "./FingerPrint";
 
-const PointSettingsButton = ({ coordX, coordY, name }) => (
+const PointSettingsButton = ({ coordX, coordY, name, onClick }) => (
   <button
     className={
       "absolute box-border bg-black text-white rounded-full opacity-50 p-1 ring ring-offset-2 ring-black hover:opacity-20"
@@ -9,6 +9,7 @@ const PointSettingsButton = ({ coordX, coordY, name }) => (
       top: `${coordY}%`,
       left: `${coordX}%`,
     }}
+    onClick={onClick}
   >
     <FingerPrint />
     <span className="sr-only">{name}</span>
