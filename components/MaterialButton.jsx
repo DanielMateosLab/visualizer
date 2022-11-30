@@ -6,7 +6,7 @@ const MaterialButton = ({ name, previewImgSrc, selected, onClick }) => (
   >
     {selected && <span className="w-20 px-4">{name}</span>}
     <img
-      className="w-16"
+      className="w-16 h-16 object-cover"
       alt={`Muestra del material "${name}"`}
       src={previewImgSrc}
     />
