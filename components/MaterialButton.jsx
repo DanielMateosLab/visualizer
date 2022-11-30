@@ -6,7 +6,7 @@ const MaterialButton = ({ name, previewImgSrc, selected, onClick }) => (
     onClick={onClick}
     aria-current={selected}
   >
-    {selected && <span className="w-20 px-4">{name}</span>}
+    {selected && <span className="px-4 ">{name}</span>}
     <div className="relative w-16 h-16">
       <Image
         className="object-cover"

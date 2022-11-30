@@ -22,7 +22,6 @@ export default function Home(props) {
     <div className="h-screen w-screen relative flex overflow-hidden">
       <Background />
 
-      <div className="w-1/6" />
       <RoomDashboard
         {...props}
         settings={settings}
@@ -33,7 +32,9 @@ export default function Home(props) {
         handleLayerLoad={handleLayerLoad}
       />
 
-      <div className={`w-1/6 relative ${menuVisibilityClass}`}>
+      <div
+        className={`absolute top-0 right-0 h-full w-fit z-10 ${menuVisibilityClass}`}
+      >
         {selectedPointId && (
           <PointMaterialsMenu
             selectedPoint={selectedPointId}
