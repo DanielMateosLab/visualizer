@@ -1,13 +1,12 @@
 import Image from "next/image";
-import baseKitchen from "../public/baseKitchen.jpeg";
 
-const RoomDashboard = ({ children }) => {
+const RoomDashboard = ({ children, imgSrc }) => {
   return (
     <main className="relative w-full h-full bg-white">
       <Image
         priority
         className="rounded-xl"
-        src={baseKitchen}
+        src={imgSrc}
         layout="fill"
         objectFit="cover"
         alt=""

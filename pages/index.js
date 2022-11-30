@@ -3,6 +3,7 @@ import Background from "../components/Background";
 import RoomDashboard from "../components/RoomDashboard";
 import PointSettingsButton from "../components/PointSettingsButton";
 import { db, getPoints } from "../firebase/db";
+import baseKitchen from "../public/baseKitchen.jpeg";
 
 export default function Home(props) {
   const [settings, setSettings] = useState({});
@@ -13,7 +14,7 @@ export default function Home(props) {
       <Background />
 
       <div className="w-1/6" />
-      <RoomDashboard>
+      <RoomDashboard imgSrc={baseKitchen}>
         {props.allPointIds.map((pointId) => (
           <Fragment key={pointId}>
             <PointSettingsButton {...props.points[pointId]} />
