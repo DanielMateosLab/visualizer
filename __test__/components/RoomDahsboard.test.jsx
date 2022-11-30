@@ -51,7 +51,7 @@ describe("RoomDashboard", () => {
   });
 
   it("should call the given setMaterialsMenuPoint function when a point is clicked", async () => {
-    const setMaterialsMenuPoint = jest.fn();
+    const setSelectedPoint = jest.fn();
     const points = {
       mockPoint1: {
         coordX: 0,
@@ -61,10 +61,10 @@ describe("RoomDashboard", () => {
       },
     };
     const allPointIds = Object.keys(points);
-    const { user } = setUp({ points, allPointIds, setMaterialsMenuPoint });
+    const { user } = setUp({ points, allPointIds, setSelectedPoint });
 
     await user.click(screen.getByText(points.mockPoint1.name));
 
-    expect(setMaterialsMenuPoint).toHaveBeenCalledWith("mockPoint1");
+    expect(setSelectedPoint).toHaveBeenCalledWith("mockPoint1");
   });
 });

@@ -2,12 +2,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import PointSettingsButton from "./PointSettingsButton";
 
-const RoomDashboard = ({
-  imgSrc,
-  allPointIds,
-  points,
-  setMaterialsMenuPoint,
-}) => {
+const RoomDashboard = ({ imgSrc, allPointIds, points, setSelectedPoint }) => {
   return (
     <main className="relative w-full h-full bg-white">
       <Image
@@ -22,7 +17,7 @@ const RoomDashboard = ({
         <Fragment key={pointId}>
           <PointSettingsButton
             {...points[pointId]}
-            onClick={() => setMaterialsMenuPoint(pointId)}
+            onClick={() => setSelectedPoint(pointId)}
           />
         </Fragment>
       ))}
