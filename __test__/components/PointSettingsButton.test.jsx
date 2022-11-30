@@ -33,9 +33,9 @@ describe("PointSettingsButton", () => {
 
   it("should call props click handler when clicked", async () => {
     const handleClick = jest.fn();
-    setUp({ onClick: handleClick });
+    const { user } = setUp({ onClick: handleClick });
 
-    await userEvent.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("button"));
 
     expect(handleClick).toHaveBeenCalled();
   });
