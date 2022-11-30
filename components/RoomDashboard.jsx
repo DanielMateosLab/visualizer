@@ -1,7 +1,7 @@
 import Image from "next/image";
 import baseKitchen from "../public/baseKitchen.jpeg";
 
-const KitchenDashboard = ({ children }) => {
+const RoomDashboard = ({ children }) => {
   return (
     <main className="relative w-full h-full bg-white">
       <Image
@@ -17,4 +17,4 @@ const KitchenDashboard = ({ children }) => {
   );
 };
 
-export default KitchenDashboard;
+export default RoomDashboard;
