@@ -21,15 +21,13 @@ const PointMaterialsMenu = ({
         onClick={() => handleArrowClick("up")}
       />
       <div className="flex flex-col gap-2 items-end h-full">
-        {Object.keys(materials).map((materialId) => (
-          <div key={materialId}>
+        {materials.map(({ materialPreview, ...material }) => (
+          <div key={material.id}>
             <MaterialButton
-              name={materials[materialId].name}
-              previewImgSrc={materials[materialId].materialPreview}
-              onClick={() =>
-                setPointMaterial({ id: materialId, ...materials[materialId] })
-              }
-              selected={selectedMaterialId === materialId}
+              name={material.name}
+              previewImgSrc={materialPreview}
+              onClick={() => setPointMaterial(material)}
+              selected={selectedMaterialId === material.id}
             />
           </div>
         ))}

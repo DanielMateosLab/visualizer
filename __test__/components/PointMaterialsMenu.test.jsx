@@ -2,24 +2,26 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PointMaterialsMenu from "../../components/PointMaterialsMenu";
 
-const mockMaterials = {
-  mockId0: {
-    materialPreview: "mockMaterialPreview0.png",
-    name: "Roble Tierra",
-    points: ["point0"],
-    layers: {
-      point0: "mockLayerImage0.png",
-    },
+const mockMaterials = [
+  {
+    id: "mockId0",
+    name: "Oxo Line Blanco",
+    materialPreview: "https://mockhost.com/materialPreview0.png",
+    materialLayer: "https://mockhost.com/materialLayer0.png",
   },
-  mockId1: {
-    points: ["point0"],
-    materialPreview: "mockMaterialPreview1.png",
-    name: "Etimoe Ice",
-    layers: {
-      point0: "mockLayerImage1.png",
-    },
+  {
+    id: "mockId1",
+    name: "Oxo Deco Blanco",
+    materialPreview: "https://mockhost.com/materialPreview1.png",
+    materialLayer: "https://mockhost.com/materialLayer1.png",
   },
-};
+  {
+    id: "mockId2",
+    name: "Marmi China",
+    materialPreview: "https://mockhost.com/materialPreview2.png",
+    materialLayer: "https://mockhost.com/materialLayer2.png",
+  },
+];
 jest.mock("../../hooks/useMaterialsForPoint", () => ({
   useMaterialsForPoint: () => mockMaterials,
 }));
@@ -43,39 +45,37 @@ describe("PointMaterialsMenu", () => {
   it("should render buttons for the given materials", () => {
     setUp();
 
-    Object.values(mockMaterials).forEach((material) => {
+    mockMaterials.forEach((material) => {
       const materialImg = screen.getByAltText(material.name, { exact: false });
       expect(materialImg).toBeInTheDocument();
     });
   });
 
-  it.each(Object.entries(mockMaterials))(
+  it.each(mockMaterials)(
     "should call setPointMaterial when a material button is clicked %#",
-    async (materialId, materialData) => {
+    async (material) => {
       const setPointMaterial = jest.fn();
       const { user } = setUp({ setPointMaterial });
 
       await user.click(
-        screen.getByAltText(materialData.name, {
+        screen.getByAltText(material.name, {
           exact: false,
         })
       );
 
-      expect(setPointMaterial).toHaveBeenCalledWith({
-        id: materialId,
-        ...materialData,
-      });
+      const { materialPreview, ...expectedData } = material;
+      expect(setPointMaterial).toHaveBeenCalledWith(expectedData);
     }
   );
 
   it("should correctly set which material is selected", () => {
-    const selectedMaterialId = Object.keys(mockMaterials)[0];
+    const selectedMaterialId = mockMaterials[0].id;
     setUp({ selectedMaterialId });
 
     expect(
       screen.getByRole("button", {
         current: true,
       })
-    ).toHaveTextContent(mockMaterials[selectedMaterialId].name);
+    ).toHaveTextContent(mockMaterials[0].name);
   });
 });
