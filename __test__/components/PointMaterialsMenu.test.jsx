@@ -2,30 +2,29 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PointMaterialsMenu from "../../components/PointMaterialsMenu";
 
+const mockMaterials = {
+  mockId0: {
+    materialPreview: "mockMaterialPreview0.png",
+    name: "Roble Tierra",
+    points: ["point0"],
+    layers: {
+      point0: "mockLayerImage0.png",
+    },
+  },
+  mockId1: {
+    points: ["point0"],
+    materialPreview: "mockMaterialPreview1.png",
+    name: "Etimoe Ice",
+    layers: {
+      point0: "mockLayerImage1.png",
+    },
+  },
+};
 jest.mock("../../hooks/useMaterialsForPoint", () => ({
-  useMaterialsForPoint: () => mockedMaterials,
+  useMaterialsForPoint: () => mockMaterials,
 }));
 
 describe("PointMaterialsMenu", () => {
-  const mockMaterials = {
-    mockId0: {
-      materialPreview: "mockMaterialPreview0.png",
-      name: "Roble Tierra",
-      points: ["point0"],
-      layers: {
-        point0: "mockLayerImage0.png",
-      },
-    },
-    mockId1: {
-      points: ["point0"],
-      materialPreview: "mockMaterialPreview1.png",
-      name: "Etimoe Ice",
-      layers: {
-        point0: "mockLayerImage1.png",
-      },
-    },
-  };
-
   const setUp = (customProps) => {
     render(
       <PointMaterialsMenu
@@ -71,7 +70,6 @@ describe("PointMaterialsMenu", () => {
 
   it("should correctly set which material is selected", () => {
     const selectedMaterialId = Object.keys(mockMaterials)[0];
-    console.log(selectedMaterialId);
     setUp({ selectedMaterialId });
 
     expect(

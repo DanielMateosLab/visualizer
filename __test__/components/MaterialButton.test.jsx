@@ -42,6 +42,14 @@ describe("MaterialButton", () => {
     expect(screen.getByText(name)).toBeInTheDocument();
   });
 
+  it("should have aria-current set to true if selected", () => {
+    setUp({ selected: true });
+
+    expect(
+      screen.getByRole("button").getAttribute("aria-current")
+    ).toBeTruthy();
+  });
+
   it("should call the onClick function when clicked", async () => {
     const onClick = jest.fn();
     const { user } = setUp({ onClick });
