@@ -7,7 +7,7 @@ const PointLayer = ({ name, materialLayer, onLoad }) => (
     className="z-10"
     alt={`Previsualización del material "${name}"`}
     src={materialLayer}
-    onLoad={onLoad}
+    onLoadingComplete={onLoad}
   />
 );
 
