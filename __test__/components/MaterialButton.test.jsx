@@ -23,9 +23,7 @@ describe("MaterialButton", () => {
     const previewImgSrc = "/mockImage.png";
     setUp({ previewImgSrc, name });
 
-    expect(
-      screen.getByAltText(name, { exact: false }).getAttribute("src")
-    ).toMatch("mockImage.png");
+    expect(screen.getByAltText(name, { exact: false })).toBeInTheDocument();
   });
 
   it("should not render the name if not selected", () => {
