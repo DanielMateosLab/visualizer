@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll --verbose"
   },
   "dependencies": {
     "firebase": "^9.6.1",
