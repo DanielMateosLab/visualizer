@@ -34,6 +34,14 @@ export async function getMaterialsByPointId(db, pointId) {
     where("points", "array-contains", pointId)
   );
   const materialsSnapshot = await getDocs(queryMaterialsForPoint);
-  const materialsByPointId = materialsSnapshot.docs.map((doc) => doc.data());
+  const materialsByPointId = materialsSnapshot.docs.map((doc) => {
+    const { name, materialPreview, layers } = doc.data();
+    return {
+      id: doc.id,
+      name,
+      materialPreview,
+      materialLayer: layers[pointId],
+    };
+  });
   return materialsByPointId;
 }
