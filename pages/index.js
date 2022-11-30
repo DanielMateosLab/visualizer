@@ -20,6 +20,7 @@ export default function Home(props) {
       <div className="w-1/6" />
       <RoomDashboard
         {...props}
+        settings={settings}
         setSelectedPoint={setSelectedPointId}
         imgSrc={baseKitchen}
       />

@@ -10,6 +10,7 @@ describe("RoomDashboard", () => {
         points={{}}
         allPointIds={[]}
         setMaterialsMenuPoint={() => {}}
+        settings={{}}
         {...customProps}
       />
     );
@@ -66,5 +67,21 @@ describe("RoomDashboard", () => {
     await user.click(screen.getByText(points.mockPoint1.name));
 
     expect(setSelectedPoint).toHaveBeenCalledWith("mockPoint1");
+  });
+
+  it("should display the layers of the given settings", () => {
+    setUp({
+      allPointIds: ["mockPoint1"],
+      settings: {
+        mockPoint1: {
+          name: "mockName1",
+          materialLayer: "/materialLayer.png",
+        },
+      },
+    });
+
+    expect(
+      screen.getByAltText("mockName1", { exact: false })
+    ).toBeInTheDocument();
   });
 });
