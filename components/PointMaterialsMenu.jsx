@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useMaterialsForPoint } from "../hooks/useMaterialsForPoint";
 import ArrowButton from "./ArrowButton";
 import MaterialButton from "./MaterialButton";
@@ -6,20 +7,21 @@ const PointMaterialsMenu = ({
   selectedMaterialId,
   selectedPoint,
   setPointMaterial,
+  handleMenuClose,
 }) => {
   const materials = useMaterialsForPoint(selectedPoint);
 
-  const handleArrowClick = (direction) => {
-    // TODO
-  };
+  useEffect(() => {
+    document.addEventListener("click", handleMenuClose);
+    return () => document.removeEventListener("click", handleMenuClose);
+  }, [handleMenuClose]);
 
   return (
-    <div className="h-full w-full py-12 px-4 flex flex-col gap-2 items-end">
-      <ArrowButton
-        accessibilityText="ver anteriores"
-        direction="up"
-        onClick={() => handleArrowClick("up")}
-      />
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="h-full w-full py-12 px-4 flex flex-col gap-2 items-end"
+    >
+      <ArrowButton accessibilityText="ver anteriores" direction="up" />
       <div className="flex flex-col gap-2 items-end h-full">
         {materials.map(({ materialPreview, ...material }) => (
           <div key={material.id}>
@@ -32,11 +34,7 @@ const PointMaterialsMenu = ({
           </div>
         ))}
       </div>
-      <ArrowButton
-        accessibilityText="ver posteriores"
-        direction="down"
-        onClick={() => handleArrowClick("up")}
-      />
+      <ArrowButton accessibilityText="ver posteriores" direction="down" />
     </div>
   );
 };

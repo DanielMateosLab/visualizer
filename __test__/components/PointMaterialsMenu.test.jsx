@@ -29,12 +29,16 @@ jest.mock("../../hooks/useMaterialsForPoint", () => ({
 describe("PointMaterialsMenu", () => {
   const setUp = (customProps) => {
     render(
-      <PointMaterialsMenu
-        selectedMaterialId=""
-        selectedPoint=""
-        setPointMaterial={() => {}}
-        {...customProps}
-      />
+      <div>
+        <div data-testid="outside" />
+        <PointMaterialsMenu
+          selectedMaterialId=""
+          selectedPoint=""
+          setPointMaterial={() => {}}
+          handleMenuClose={() => {}}
+          {...customProps}
+        />
+      </div>
     );
 
     return {
@@ -77,5 +81,14 @@ describe("PointMaterialsMenu", () => {
         current: true,
       })
     ).toHaveTextContent(mockMaterials[0].name);
+  });
+
+  it("should call handleMenuClose when clicking outside the menu", async () => {
+    const handleMenuClose = jest.fn();
+    const { user } = setUp({ handleMenuClose });
+
+    await user.click(screen.getByTestId("outside"));
+
+    expect(handleMenuClose).toHaveBeenCalled();
   });
 });

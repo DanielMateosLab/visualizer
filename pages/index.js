@@ -9,9 +9,14 @@ export default function Home(props) {
   const [settings, setSettings] = useState({});
   const [selectedPointId, setSelectedPointId] = useState(null);
   const selectedMaterialId = settings[selectedPointId]?.id;
+  const [layerLoading, setLayerLoading] = useState(false);
+  const menuVisibilityClass = layerLoading ? "invisible" : "";
 
-  const setPointMaterial = (material) =>
+  const setPointMaterial = (material) => {
     setSettings({ ...settings, [selectedPointId]: material });
+    setLayerLoading(true);
+  };
+  const handleLayerLoad = () => setLayerLoading(false);
 
   return (
     <div className="h-screen w-screen relative flex overflow-hidden">
@@ -21,16 +26,20 @@ export default function Home(props) {
       <RoomDashboard
         {...props}
         settings={settings}
+        selectingMaterial={!!selectedPointId}
         setSelectedPoint={setSelectedPointId}
         imgSrc={baseKitchen}
+        layerLoading={layerLoading}
+        handleLayerLoad={handleLayerLoad}
       />
 
-      <div className="w-1/6 relative">
+      <div className={`w-1/6 relative ${menuVisibilityClass}`}>
         {selectedPointId && (
           <PointMaterialsMenu
             selectedPoint={selectedPointId}
             selectedMaterialId={selectedMaterialId}
             setPointMaterial={setPointMaterial}
+            handleMenuClose={() => setSelectedPointId(null)}
           />
         )}
       </div>

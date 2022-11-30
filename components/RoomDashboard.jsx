@@ -9,6 +9,9 @@ const RoomDashboard = ({
   points,
   setSelectedPoint,
   settings,
+  layerLoading,
+  handleLayerLoad,
+  selectingMaterial,
 }) => {
   return (
     <main className="relative w-full h-full bg-white">
@@ -25,12 +28,19 @@ const RoomDashboard = ({
           <PointSettingsButton
             {...points[pointId]}
             onClick={() => setSelectedPoint(pointId)}
+            selectingMaterial={selectingMaterial}
           />
+
           {settings[pointId] && (
             <PointLayer
               name={settings[pointId].name}
               materialLayer={settings[pointId].materialLayer}
+              onLoad={handleLayerLoad}
             />
+          )}
+
+          {layerLoading && (
+            <div className="absolute w-full h-full bg-black opacity-5 z-30" />
           )}
         </Fragment>
       ))}
