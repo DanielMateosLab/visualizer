@@ -1,8 +1,8 @@
-const ArrowButton = ({ direction, onClick, accessibilityText }) => {
-  const rotationClass = direction === 'down' ? 'rotate-180' : ''
+const ArrowButton = ({ type, onClick, accessibilityText }) => {
+  const rotationClass = type === 'next' ? 'rotate-90 lg:rotate-180' : '-rotate-90 lg:rotate-0'
 
   return (
-    <button className={`p-4 text-gray-50 ${rotationClass}`} onClick={onClick}>
+    <button className={`p-1 lg:p-4 text-gray-50 ${rotationClass}`} onClick={onClick}>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'

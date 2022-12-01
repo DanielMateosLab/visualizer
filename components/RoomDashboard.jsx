@@ -21,10 +21,7 @@ const RoomDashboard = ({
   } = useCropCorrection()
 
   return (
-    <main
-      ref={containerCallback}
-      className='relative w-4/6 h-full bg-white mx-auto bg-right'
-    >
+    <div className='relative w-full h-full' ref={containerCallback}>
       <Image
         priority
         className='rounded-xl'
@@ -57,7 +54,7 @@ const RoomDashboard = ({
           )}
         </Fragment>
       ))}
-    </main>
+    </div>
   )
 }
 

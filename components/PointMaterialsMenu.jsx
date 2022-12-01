@@ -25,13 +25,13 @@ const PointMaterialsMenu = ({
   }, [handleMenuClose])
 
   return (
-    <div className='h-full w-full py-12 px-4 flex flex-col gap-2 items-end'>
+    <div className='h-full w-full pb-8 items-center lg:py-12 px-2 lg:px-4 flex lg:flex-col gap-2 lg:items-end'>
       <ArrowButton
         onClick={handleArrowClick}
         accessibilityText='ver anteriores'
-        direction='up'
+        type='previous'
       />
-      <div className='flex flex-col gap-2 items-end h-full'>
+      <div className='flex lg:flex-col gap-1 lg:gap-2 items-center lg:items-end grow'>
         {materials.map(({ materialPreview, ...material }) => (
           <div key={material.id}>
             <MaterialButton
@@ -46,7 +46,7 @@ const PointMaterialsMenu = ({
       <ArrowButton
         onClick={handleArrowClick}
         accessibilityText='ver posteriores'
-        direction='down'
+        type='next'
       />
     </div>
   )

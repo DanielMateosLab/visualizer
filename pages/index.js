@@ -8,8 +8,8 @@ import baseKitchen from '../public/baseKitchen.jpeg'
 export default function Home (props) {
   const [settings, setSettings] = useState({})
   const [selectedPointId, setSelectedPointId] = useState(null)
-  const selectedMaterialId = settings[selectedPointId]?.id
   const [layerLoading, setLayerLoading] = useState(false)
+  const selectedMaterialId = settings[selectedPointId]?.id
   const menuVisibilityClass = layerLoading ? 'invisible' : ''
 
   const setPointMaterial = (material) => {
@@ -22,18 +22,21 @@ export default function Home (props) {
     <div className='h-screen w-screen relative flex overflow-hidden'>
       <Background />
 
-      <RoomDashboard
-        {...props}
-        settings={settings}
-        selectingMaterial={!!selectedPointId}
-        setSelectedPoint={setSelectedPointId}
-        imgSrc={baseKitchen}
-        layerLoading={layerLoading}
-        handleLayerLoad={handleLayerLoad}
-      />
-
-      <div
-        className={`absolute top-0 right-0 h-full w-fit z-10 ${menuVisibilityClass}`}
+      <main
+        className='w-full h-5/6 lg:w-4/6 lg:h-full bg-white mx-auto bg-right'
+      >
+        <RoomDashboard
+          {...props}
+          settings={settings}
+          selectingMaterial={!!selectedPointId}
+          setSelectedPoint={setSelectedPointId}
+          imgSrc={baseKitchen}
+          layerLoading={layerLoading}
+          handleLayerLoad={handleLayerLoad}
+        />
+      </main>
+      <nav
+        className={`absolute z-10 h-fit w-full max-lg:left-0 bottom-0 lg:top-0 lg:right-0 lg:h-full lg:w-fit ${menuVisibilityClass}`}
       >
         {selectedPointId && (
           <PointMaterialsMenu
@@ -43,7 +46,7 @@ export default function Home (props) {
             handleMenuClose={() => setSelectedPointId(null)}
           />
         )}
-      </div>
+      </nav>
     </div>
   )
 }
