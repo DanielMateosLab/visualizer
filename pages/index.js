@@ -6,14 +6,14 @@ import { db, getPoints } from '../firebase/db'
 import baseKitchen from '../public/baseKitchen.jpeg'
 
 export default function Home (props) {
-  const [settings, setSettings] = useState({})
+  const [pointsSettings, setPointsSettings] = useState({})
   const [selectedPointId, setSelectedPointId] = useState(null)
   const [layerLoading, setLayerLoading] = useState(false)
-  const selectedMaterialId = settings[selectedPointId]?.id
+  const selectedMaterialId = pointsSettings[selectedPointId]?.id
   const menuVisibilityClass = layerLoading ? 'invisible' : ''
 
   const setPointMaterial = (material) => {
-    setSettings({ ...settings, [selectedPointId]: material })
+    setPointsSettings({ ...pointsSettings, [selectedPointId]: material })
     setLayerLoading(true)
   }
   const handleLayerLoad = () => setLayerLoading(false)
@@ -27,7 +27,7 @@ export default function Home (props) {
       >
         <RoomDashboard
           {...props}
-          settings={settings}
+          settings={pointsSettings}
           selectingMaterial={!!selectedPointId}
           setSelectedPoint={setSelectedPointId}
           imgSrc={baseKitchen}
