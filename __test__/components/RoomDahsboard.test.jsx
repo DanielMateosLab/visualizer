@@ -1,87 +1,87 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import RoomDashboard from "../../components/RoomDashboard";
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import RoomDashboard from '../../components/RoomDashboard'
 
-describe("RoomDashboard", () => {
+describe('RoomDashboard', () => {
   const setUp = (customProps) => {
     render(
       <RoomDashboard
-        imgSrc="/test.png"
+        imgSrc='/test.png'
         points={{}}
         allPointIds={[]}
         setMaterialsMenuPoint={() => {}}
         settings={{}}
         {...customProps}
       />
-    );
+    )
 
     return {
-      user: userEvent.setup(),
-    };
-  };
+      user: userEvent.setup()
+    }
+  }
 
-  it("should render the given img", () => {
-    const imgSrc = "/image.png";
-    setUp({ imgSrc });
+  it('should render the given img', () => {
+    const imgSrc = '/image.png'
+    setUp({ imgSrc })
 
-    expect(screen.getByRole("img").getAttribute("src")).toMatch("image.png");
-  });
+    expect(screen.getByRole('img').getAttribute('src')).toMatch('image.png')
+  })
 
-  it("should render the given points", () => {
+  it('should render the given points', () => {
     const points = {
       mockPoint1: {
         coordX: 0,
         coordY: 0,
-        name: "mockName1",
-        onClick: () => {},
+        name: 'mockName1',
+        onClick: () => {}
       },
       mockPoint2: {
         coordX: 0,
         coordY: 0,
-        name: "mockName2",
-        onClick: () => {},
-      },
-    };
-    const allPointIds = Object.keys(points);
+        name: 'mockName2',
+        onClick: () => {}
+      }
+    }
+    const allPointIds = Object.keys(points)
 
-    setUp({ points, allPointIds });
+    setUp({ points, allPointIds })
 
     allPointIds.forEach((pointId) => {
-      expect(screen.getByText(points[pointId].name)).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByText(points[pointId].name)).toBeInTheDocument()
+    })
+  })
 
-  it("should call the given setMaterialsMenuPoint function when a point is clicked", async () => {
-    const setSelectedPoint = jest.fn();
+  it('should call the given setMaterialsMenuPoint function when a point is clicked', async () => {
+    const setSelectedPoint = jest.fn()
     const points = {
       mockPoint1: {
         coordX: 0,
         coordY: 0,
-        name: "mockName1",
-        onClick: () => {},
-      },
-    };
-    const allPointIds = Object.keys(points);
-    const { user } = setUp({ points, allPointIds, setSelectedPoint });
+        name: 'mockName1',
+        onClick: () => {}
+      }
+    }
+    const allPointIds = Object.keys(points)
+    const { user } = setUp({ points, allPointIds, setSelectedPoint })
 
-    await user.click(screen.getByText(points.mockPoint1.name));
+    await user.click(screen.getByText(points.mockPoint1.name))
 
-    expect(setSelectedPoint).toHaveBeenCalledWith("mockPoint1");
-  });
+    expect(setSelectedPoint).toHaveBeenCalledWith('mockPoint1')
+  })
 
-  it("should display the layers of the given settings", () => {
+  it('should display the layers of the given settings', () => {
     setUp({
-      allPointIds: ["mockPoint1"],
+      allPointIds: ['mockPoint1'],
       settings: {
         mockPoint1: {
-          name: "mockName1",
-          materialLayer: "/materialLayer.png",
-        },
-      },
-    });
+          name: 'mockName1',
+          materialLayer: '/materialLayer.png'
+        }
+      }
+    })
 
     expect(
-      screen.getByAltText("mockName1", { exact: false })
-    ).toBeInTheDocument();
-  });
-});
+      screen.getByAltText('mockName1', { exact: false })
+    ).toBeInTheDocument()
+  })
+})

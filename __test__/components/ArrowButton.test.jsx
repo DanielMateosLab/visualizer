@@ -1,36 +1,36 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import ArrowButton from "../../components/ArrowButton";
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import ArrowButton from '../../components/ArrowButton'
 
-describe("ArrowButton", () => {
+describe('ArrowButton', () => {
   const setUp = (customProps) => {
     render(
       <ArrowButton
-        accessibilityText=""
-        direction="up"
+        accessibilityText=''
+        direction='up'
         onClick={() => {}}
         {...customProps}
       />
-    );
+    )
 
     return {
-      user: userEvent.setup(),
-    };
-  };
+      user: userEvent.setup()
+    }
+  }
 
-  it("should render the given accessibility text", () => {
-    const accessibilityText = "mockAccessibilityText";
-    setUp({ accessibilityText });
+  it('should render the given accessibility text', () => {
+    const accessibilityText = 'mockAccessibilityText'
+    setUp({ accessibilityText })
 
-    expect(screen.getByText(accessibilityText)).toBeInTheDocument();
-  });
+    expect(screen.getByText(accessibilityText)).toBeInTheDocument()
+  })
 
-  it("should call the given onClick function when clicked", async () => {
-    const onClick = jest.fn();
-    const { user } = setUp({ onClick });
+  it('should call the given onClick function when clicked', async () => {
+    const onClick = jest.fn()
+    const { user } = setUp({ onClick })
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole('button'))
 
-    expect(onClick).toHaveBeenCalled();
-  });
-});
+    expect(onClick).toHaveBeenCalled()
+  })
+})

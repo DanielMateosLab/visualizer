@@ -1,59 +1,57 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import MaterialButton from "../../components/MaterialButton";
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import MaterialButton from '../../components/MaterialButton'
 
-describe("MaterialButton", () => {
+describe('MaterialButton', () => {
   const setUp = (customProps) => {
     render(
       <MaterialButton
-        name=""
-        previewImgSrc="/mock.png"
+        name=''
+        previewImgSrc='/mock.png'
         onClick={() => {}}
         {...customProps}
       />
-    );
+    )
 
     return {
-      user: userEvent.setup(),
-    };
-  };
+      user: userEvent.setup()
+    }
+  }
 
-  it("should render the given preview img", () => {
-    const name = "mockName";
-    const previewImgSrc = "/mockImage.png";
-    setUp({ previewImgSrc, name });
+  it('should render the given preview img', () => {
+    const name = 'mockName'
+    const previewImgSrc = '/mockImage.png'
+    setUp({ previewImgSrc, name })
 
-    expect(screen.getByAltText(name, { exact: false })).toBeInTheDocument();
-  });
+    expect(screen.getByAltText(name, { exact: false })).toBeInTheDocument()
+  })
 
-  it("should not render the name if not selected", () => {
-    const name = "mockName";
-    setUp({ name, selected: false });
+  it('should not render the name if not selected', () => {
+    const name = 'mockName'
+    setUp({ name, selected: false })
 
-    expect(screen.queryByText(name)).not.toBeInTheDocument();
-  });
+    expect(screen.queryByText(name)).not.toBeInTheDocument()
+  })
 
-  it("should render the name if selected", () => {
-    const name = "mockName";
-    setUp({ name, selected: true });
+  it('should render the name if selected', () => {
+    const name = 'mockName'
+    setUp({ name, selected: true })
 
-    expect(screen.getByText(name)).toBeInTheDocument();
-  });
+    expect(screen.getByText(name)).toBeInTheDocument()
+  })
 
-  it("should have aria-current set to true if selected", () => {
-    setUp({ selected: true });
+  it('should have aria-current set to true if selected', () => {
+    setUp({ selected: true })
 
-    expect(
-      screen.getByRole("button").getAttribute("aria-current")
-    ).toBeTruthy();
-  });
+    expect(screen.getByRole('button').getAttribute('aria-current')).toBeTruthy()
+  })
 
-  it("should call the onClick function when clicked", async () => {
-    const onClick = jest.fn();
-    const { user } = setUp({ onClick });
+  it('should call the onClick function when clicked', async () => {
+    const onClick = jest.fn()
+    const { user } = setUp({ onClick })
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole('button'))
 
-    expect(onClick).toHaveBeenCalled();
-  });
-});
+    expect(onClick).toHaveBeenCalled()
+  })
+})

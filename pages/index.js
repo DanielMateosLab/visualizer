@@ -1,25 +1,25 @@
-import { useState } from "react";
-import Background from "../components/Background";
-import PointMaterialsMenu from "../components/PointMaterialsMenu";
-import RoomDashboard from "../components/RoomDashboard";
-import { db, getPoints } from "../firebase/db";
-import baseKitchen from "../public/baseKitchen.jpeg";
+import { useState } from 'react'
+import Background from '../components/Background'
+import PointMaterialsMenu from '../components/PointMaterialsMenu'
+import RoomDashboard from '../components/RoomDashboard'
+import { db, getPoints } from '../firebase/db'
+import baseKitchen from '../public/baseKitchen.jpeg'
 
 export default function Home(props) {
-  const [settings, setSettings] = useState({});
-  const [selectedPointId, setSelectedPointId] = useState(null);
-  const selectedMaterialId = settings[selectedPointId]?.id;
-  const [layerLoading, setLayerLoading] = useState(false);
-  const menuVisibilityClass = layerLoading ? "invisible" : "";
+  const [settings, setSettings] = useState({})
+  const [selectedPointId, setSelectedPointId] = useState(null)
+  const selectedMaterialId = settings[selectedPointId]?.id
+  const [layerLoading, setLayerLoading] = useState(false)
+  const menuVisibilityClass = layerLoading ? 'invisible' : ''
 
   const setPointMaterial = (material) => {
-    setSettings({ ...settings, [selectedPointId]: material });
-    setLayerLoading(true);
-  };
-  const handleLayerLoad = () => setLayerLoading(false);
+    setSettings({ ...settings, [selectedPointId]: material })
+    setLayerLoading(true)
+  }
+  const handleLayerLoad = () => setLayerLoading(false)
 
   return (
-    <div className="h-screen w-screen relative flex overflow-hidden">
+    <div className='h-screen w-screen relative flex overflow-hidden'>
       <Background />
 
       <RoomDashboard
@@ -45,11 +45,11 @@ export default function Home(props) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 export async function getStaticProps() {
-  const pointsData = await getPoints(db);
+  const pointsData = await getPoints(db)
 
-  return { props: pointsData };
+  return { props: pointsData }
 }

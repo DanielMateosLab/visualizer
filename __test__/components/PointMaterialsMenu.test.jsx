@@ -1,94 +1,94 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import PointMaterialsMenu from "../../components/PointMaterialsMenu";
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import PointMaterialsMenu from '../../components/PointMaterialsMenu'
 
 const mockMaterials = [
   {
-    id: "mockId0",
-    name: "Oxo Line Blanco",
-    materialPreview: "https://mockhost.com/materialPreview0.png",
-    materialLayer: "https://mockhost.com/materialLayer0.png",
+    id: 'mockId0',
+    name: 'Oxo Line Blanco',
+    materialPreview: 'https://mockhost.com/materialPreview0.png',
+    materialLayer: 'https://mockhost.com/materialLayer0.png'
   },
   {
-    id: "mockId1",
-    name: "Oxo Deco Blanco",
-    materialPreview: "https://mockhost.com/materialPreview1.png",
-    materialLayer: "https://mockhost.com/materialLayer1.png",
+    id: 'mockId1',
+    name: 'Oxo Deco Blanco',
+    materialPreview: 'https://mockhost.com/materialPreview1.png',
+    materialLayer: 'https://mockhost.com/materialLayer1.png'
   },
   {
-    id: "mockId2",
-    name: "Marmi China",
-    materialPreview: "https://mockhost.com/materialPreview2.png",
-    materialLayer: "https://mockhost.com/materialLayer2.png",
-  },
-];
-jest.mock("../../hooks/useMaterialsForPoint", () => ({
-  useMaterialsForPoint: () => mockMaterials,
-}));
+    id: 'mockId2',
+    name: 'Marmi China',
+    materialPreview: 'https://mockhost.com/materialPreview2.png',
+    materialLayer: 'https://mockhost.com/materialLayer2.png'
+  }
+]
+jest.mock('../../hooks/useMaterialsForPoint', () => ({
+  useMaterialsForPoint: () => mockMaterials
+}))
 
-describe("PointMaterialsMenu", () => {
+describe('PointMaterialsMenu', () => {
   const setUp = (customProps) => {
     render(
       <div>
-        <div data-testid="outside" />
+        <div data-testid='outside' />
         <PointMaterialsMenu
-          selectedMaterialId=""
-          selectedPoint=""
+          selectedMaterialId=''
+          selectedPoint=''
           setPointMaterial={() => {}}
           handleMenuClose={() => {}}
           {...customProps}
         />
       </div>
-    );
+    )
 
     return {
-      user: userEvent.setup(),
-    };
-  };
+      user: userEvent.setup()
+    }
+  }
 
-  it("should render buttons for the given materials", () => {
-    setUp();
+  it('should render buttons for the given materials', () => {
+    setUp()
 
     mockMaterials.forEach((material) => {
-      const materialImg = screen.getByAltText(material.name, { exact: false });
-      expect(materialImg).toBeInTheDocument();
-    });
-  });
+      const materialImg = screen.getByAltText(material.name, { exact: false })
+      expect(materialImg).toBeInTheDocument()
+    })
+  })
 
   it.each(mockMaterials)(
-    "should call setPointMaterial when a material button is clicked %#",
+    'should call setPointMaterial when a material button is clicked %#',
     async (material) => {
-      const setPointMaterial = jest.fn();
-      const { user } = setUp({ setPointMaterial });
+      const setPointMaterial = jest.fn()
+      const { user } = setUp({ setPointMaterial })
 
       await user.click(
         screen.getByAltText(material.name, {
-          exact: false,
+          exact: false
         })
-      );
+      )
 
-      const { materialPreview, ...expectedData } = material;
-      expect(setPointMaterial).toHaveBeenCalledWith(expectedData);
+      const { materialPreview, ...expectedData } = material
+      expect(setPointMaterial).toHaveBeenCalledWith(expectedData)
     }
-  );
+  )
 
-  it("should correctly set which material is selected", () => {
-    const selectedMaterialId = mockMaterials[0].id;
-    setUp({ selectedMaterialId });
+  it('should correctly set which material is selected', () => {
+    const selectedMaterialId = mockMaterials[0].id
+    setUp({ selectedMaterialId })
 
     expect(
-      screen.getByRole("button", {
-        current: true,
+      screen.getByRole('button', {
+        current: true
       })
-    ).toHaveTextContent(mockMaterials[0].name);
-  });
+    ).toHaveTextContent(mockMaterials[0].name)
+  })
 
-  it("should call handleMenuClose when clicking outside the menu", async () => {
-    const handleMenuClose = jest.fn();
-    const { user } = setUp({ handleMenuClose });
+  it('should call handleMenuClose when clicking outside the menu', async () => {
+    const handleMenuClose = jest.fn()
+    const { user } = setUp({ handleMenuClose })
 
-    await user.click(screen.getByTestId("outside"));
+    await user.click(screen.getByTestId('outside'))
 
-    expect(handleMenuClose).toHaveBeenCalled();
-  });
-});
+    expect(handleMenuClose).toHaveBeenCalled()
+  })
+})
