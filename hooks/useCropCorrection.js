@@ -21,7 +21,7 @@ export const useCropCorrection = () => {
    */
   const getCorrectedPercentageForAxis = (originalPercentage, axis) =>
     originalPercentage +
-    ((originalPercentage - 50) / 100) * offsetPercentages[axis]
+    ((originalPercentage - 50) / 100) * 2 * offsetPercentages[axis]
 
   useEffect(() => {
     if (originalRatio && window.ResizeObserver) {
