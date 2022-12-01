@@ -77,6 +77,14 @@ describe('RoomDashboard', () => {
           name: 'mockName1',
           materialLayer: '/materialLayer.png'
         }
+      },
+      points: {
+        mockPoint1: {
+          coordX: 0,
+          coordY: 0,
+          name: 'mockName1',
+          onClick: () => {}
+        }
       }
     })
 
