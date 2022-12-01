@@ -13,7 +13,7 @@ export const useMaterialsForPoint = (pointId) => {
 
         setMaterials(data)
       } catch (error) {
-        alert('Error cargando los materiales. Vuelve a intentarlo')
+        window.alert('Error cargando los materiales. Vuelve a intentarlo')
       }
     }
 

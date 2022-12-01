@@ -5,7 +5,7 @@ import RoomDashboard from '../components/RoomDashboard'
 import { db, getPoints } from '../firebase/db'
 import baseKitchen from '../public/baseKitchen.jpeg'
 
-export default function Home(props) {
+export default function Home (props) {
   const [settings, setSettings] = useState({})
   const [selectedPointId, setSelectedPointId] = useState(null)
   const selectedMaterialId = settings[selectedPointId]?.id
@@ -48,7 +48,7 @@ export default function Home(props) {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps () {
   const pointsData = await getPoints(db)
 
   return { props: pointsData }

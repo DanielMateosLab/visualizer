@@ -11,7 +11,7 @@ import {
 const app = initializeApp(config)
 export const db = getFirestore(app)
 
-export async function getPoints(db) {
+export async function getPoints (db) {
   const pointsCol = collection(db, 'points')
   const pointSnapshot = await getDocs(pointsCol)
   const pointsMap = pointSnapshot.docs.reduce(
@@ -27,7 +27,7 @@ export async function getPoints(db) {
   return pointsMap
 }
 
-export async function getMaterialsByPointId(db, pointId) {
+export async function getMaterialsByPointId (db, pointId) {
   const materialsCol = collection(db, 'materials')
   const queryMaterialsForPoint = query(
     materialsCol,
