@@ -1,42 +1,55 @@
-import { useEffect } from "react";
-import { useMaterialsForPoint } from "../hooks/useMaterialsForPoint";
-import ArrowButton from "./ArrowButton";
-import MaterialButton from "./MaterialButton";
+import { useEffect } from 'react'
+import { useMaterialsForPoint } from '../hooks/useMaterialsForPoint'
+import ArrowButton from './ArrowButton'
+import MaterialButton from './MaterialButton'
 
 const PointMaterialsMenu = ({
   selectedMaterialId,
   selectedPoint,
   setPointMaterial,
-  handleMenuClose,
+  handleMenuClose
 }) => {
-  const materials = useMaterialsForPoint(selectedPoint);
+  const materials = useMaterialsForPoint(selectedPoint)
+
+  const materialButtonClickHandlerCreator = (material) => (e) => {
+    e.stopPropagation()
+    setPointMaterial(material)
+  }
+  const handleArrowClick = (e) => {
+    e.stopPropagation()
+  }
 
   useEffect(() => {
-    document.addEventListener("click", handleMenuClose);
-    return () => document.removeEventListener("click", handleMenuClose);
-  }, [handleMenuClose]);
+    document.addEventListener('click', handleMenuClose)
+    return () => document.removeEventListener('click', handleMenuClose)
+  }, [handleMenuClose])
 
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className="h-full w-full py-12 px-4 flex flex-col gap-2 items-end"
-    >
-      <ArrowButton accessibilityText="ver anteriores" direction="up" />
-      <div className="flex flex-col gap-2 items-end h-full">
+    <div className='h-full w-full py-12 px-4 flex flex-col gap-2 items-end'>
+      <ArrowButton
+        onClick={handleArrowClick}
+        accessibilityText='ver anteriores'
+        direction='up'
+      />
+      <div className='flex flex-col gap-2 items-end h-full'>
         {materials.map(({ materialPreview, ...material }) => (
           <div key={material.id}>
             <MaterialButton
               name={material.name}
               previewImgSrc={materialPreview}
-              onClick={() => setPointMaterial(material)}
+              onClick={materialButtonClickHandlerCreator(material)}
               selected={selectedMaterialId === material.id}
             />
           </div>
         ))}
       </div>
-      <ArrowButton accessibilityText="ver posteriores" direction="down" />
+      <ArrowButton
+        onClick={handleArrowClick}
+        accessibilityText='ver posteriores'
+        direction='down'
+      />
     </div>
-  );
-};
+  )
+}
 
-export default PointMaterialsMenu;
+export default PointMaterialsMenu
