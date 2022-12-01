@@ -1,7 +1,8 @@
-import Image from "next/image";
-import { Fragment } from "react";
-import PointLayer from "./PointLayer";
-import PointSettingsButton from "./PointSettingsButton";
+import Image from 'next/image'
+import { Fragment } from 'react'
+import { useCropCorrection } from '../hooks/useCropCorrection'
+import PointLayer from './PointLayer'
+import PointSettingsButton from './PointSettingsButton'
 
 const RoomDashboard = ({
   imgSrc,
@@ -11,22 +12,34 @@ const RoomDashboard = ({
   settings,
   layerLoading,
   handleLayerLoad,
-  selectingMaterial,
+  selectingMaterial
 }) => {
+  const {
+    containerCallback,
+    handleImageLoadComplete,
+    getCorrectedPercentageForAxis
+  } = useCropCorrection()
+
   return (
-    <main className="relative w-full h-full bg-white">
+    <main
+      ref={containerCallback}
+      className='relative w-4/6 h-full bg-white mx-auto bg-right'
+    >
       <Image
         priority
-        className="rounded-xl"
+        className='rounded-xl'
         src={imgSrc}
-        layout="fill"
-        objectFit="cover"
-        alt=""
+        layout='fill'
+        objectFit='cover'
+        alt=''
+        onLoadingComplete={handleImageLoadComplete}
       />
       {allPointIds.map((pointId) => (
         <Fragment key={pointId}>
           <PointSettingsButton
-            {...points[pointId]}
+            name={points[pointId].name}
+            coordX={getCorrectedPercentageForAxis(points[pointId].coordX, 'x')}
+            coordY={getCorrectedPercentageForAxis(points[pointId].coordY, 'y')}
             onClick={() => setSelectedPoint(pointId)}
             selectingMaterial={selectingMaterial}
           />
@@ -40,12 +53,12 @@ const RoomDashboard = ({
           )}
 
           {layerLoading && (
-            <div className="absolute w-full h-full bg-black opacity-5 z-30" />
+            <div className='absolute w-full h-full bg-black opacity-5 z-30' />
           )}
         </Fragment>
       ))}
     </main>
-  );
-};
+  )
+}
 
-export default RoomDashboard;
+export default RoomDashboard
